@@ -8,8 +8,11 @@
 <body>
 
 <header>
-    <h1>Т-емка</h1>
-    <button id="themeBtn" onclick="toggleTheme()">Тёмная тема</button>
+    <img src="т-кмка.png" alt="Т-емка" style="width:300px">
+    <div style="display:flex; align-items:center; gap:12px">
+        <span id="streakDisplay" class="streak">—</span>
+        <button id="themeBtn" onclick="toggleTheme()">Тёмная тема</button>
+    </div>
 </header>
 
 <main>
@@ -27,6 +30,19 @@
         <div class="card">
             <p>Расходы за месяц</p>
             <h2 id="expense" class="red">0 ₽</h2>
+        </div>
+    </section>
+
+    <!-- доп. карточки (лимит на день, слабое место) -->
+    <section class="stats" id="extraStats" style="display:none">
+        <div class="card" id="dailyCard" style="display:none">
+            <p>Осталось сегодня</p>
+            <h2 id="dailyLeft">—</h2>
+            <small id="dailySpent"></small>
+        </div>
+        <div class="card weak-card" id="weakCard" style="display:none">
+            <p id="weakCardTitle">Слабое место</p>
+            <h2 id="weakTotal">0 ₽</h2>
         </div>
     </section>
 
@@ -50,13 +66,7 @@
 
                 <label>
                     Категория
-                    <select id="category">
-                        <option value="Еда">Еда</option>
-                        <option value="Транспорт">Транспорт</option>
-                        <option value="Развлечения">Развлечения</option>
-                        <option value="Учёба">Учёба</option>
-                        <option value="Другое">Другое</option>
-                    </select>
+                    <select id="category"></select>
                 </label>
 
                 <label>
@@ -93,11 +103,6 @@
                 Категория
                 <select id="filterCategory" onchange="render()">
                     <option value="all">Все</option>
-                    <option value="Еда">Еда</option>
-                    <option value="Транспорт">Транспорт</option>
-                    <option value="Развлечения">Развлечения</option>
-                    <option value="Учёба">Учёба</option>
-                    <option value="Другое">Другое</option>
                 </select>
             </label>
 
@@ -113,6 +118,68 @@
             <label style="justify-content:flex-end">
                 <button type="button" onclick="exportCSV()" style="margin-top:22px">Скачать CSV</button>
             </label>
+        </div>
+        <div class="row">
+            <label>
+                Дата с
+                <input type="date" id="dateFrom" onchange="render()">
+            </label>
+            <label>
+                Дата по
+                <input type="date" id="dateTo" onchange="render()">
+            </label>
+            <label style="justify-content:flex-end; align-items:flex-end">
+                <button type="button" onclick="clearDates()" style="margin-top:0; background:#eee; color:#555">Сбросить даты</button>
+            </label>
+        </div>
+    </section>
+
+    <!-- настройки -->
+    <section class="settings-box">
+        <div class="settings-header" onclick="toggleSettings()">
+            <h3>⚙ Настройки</h3>
+            <span id="settingsArrow">▼</span>
+        </div>
+        <div id="settingsBody" style="display:none">
+            <div class="row">
+                <label>
+                    Своя валюта (название)
+                    <input type="text" id="currencyName" placeholder="например, шаурма" maxlength="20">
+                </label>
+                <label>
+                    Курс (руб. за 1 единицу)
+                    <input type="number" id="currencyRate" min="1" placeholder="400">
+                </label>
+                <label>
+                    Лимит расходов в день (₽)
+                    <input type="number" id="dailyLimit" min="0" placeholder="0 = отключено">
+                </label>
+            </div>
+            <div class="row">
+                <label>
+                    Слабое место (категория)
+                    <select id="weakCategory"></select>
+                </label>
+                <label>
+                    Тип категории
+                    <select id="newCategoryType">
+                        <option value="expense">Расход</option>
+                        <option value="income">Доход</option>
+                    </select>
+                </label>
+                <label>
+                    Название категории
+                    <input type="text" id="newCategoryInput" placeholder="Название категории" maxlength="30">
+                </label>
+                <label style="justify-content:flex-end; align-items:flex-end">
+                    <button type="button" onclick="addCustomCategory()">+ Добавить</button>
+                </label>
+            </div>
+            <div id="customCatList" class="cat-list"></div>
+            <div class="form-btns" style="margin-top:10px">
+                <button type="button" onclick="saveSettings()" style="background:#222; color:#ffdd2d">Сохранить настройки</button>
+                <button type="button" onclick="resetSettings()" style="background:#eee; color:#d33a3a">Сбросить всё</button>
+            </div>
         </div>
     </section>
 
