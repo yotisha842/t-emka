@@ -1,0 +1,186 @@
+/* базовые сбросы */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f7;
+    color: #222;
+    padding: 20px;
+}
+
+/* шапка */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #ffdd2d;
+    background: #222;
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 8px;
+}
+
+header p {
+    margin-top: 10px;
+    color: #666;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* карточки статистики */
+.stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: #fff;
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card p {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.card h2 {
+    font-size: 24px;
+}
+
+/* цвета */
+.green {
+    color: #2a9d3f;
+}
+
+.red {
+    color: #d33a3a;
+}
+
+/* форма */
+.form-box, .list-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.form-box h3, .list-box h3 {
+    margin-bottom: 15px;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #555;
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+input, select {
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+button {
+    background: #ffdd2d;
+    color: #222;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #ffd000;
+}
+
+/* список */
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info .date {
+    color: #888;
+    font-size: 13px;
+}
+
+.item-info .category {
+    font-weight: bold;
+}
+
+.item-info .comment {
+    color: #666;
+    font-size: 13px;
+}
+
+.item-amount {
+    font-weight: bold;
+    margin-right: 15px;
+    font-size: 16px;
+}
+
+.del-btn {
+    background: #f4f4f7;
+    color: #d33a3a;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.del-btn:hover {
+    background: #ffe5e5;
+}
+
+.empty {
+    text-align: center;
+    color: #aaa;
+    padding: 20px;
+}
+
+/* на узких экранах */
+@media (max-width: 600px) {
+    .stats, .row {
+        flex-direction: column;
+    }
+}

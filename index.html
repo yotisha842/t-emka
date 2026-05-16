@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои финансы</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Мои финансы</h1>
+    <p>Дашборд студента</p>
+</header>
+
+<main>
+
+    <!-- три карточки со статистикой -->
+    <section class="stats">
+        <div class="card">
+            <p>Баланс</p>
+            <h2 id="balance">0 ₽</h2>
+        </div>
+        <div class="card">
+            <p>Доходы за месяц</p>
+            <h2 id="income" class="green">0 ₽</h2>
+        </div>
+        <div class="card">
+            <p>Расходы за месяц</p>
+            <h2 id="expense" class="red">0 ₽</h2>
+        </div>
+    </section>
+
+    <!-- форма добавления -->
+    <section class="form-box">
+        <h3>Новая транзакция</h3>
+        <form id="form">
+            <div class="row">
+                <label>
+                    Тип
+                    <select id="type">
+                        <option value="income">Доход</option>
+                        <option value="expense" selected>Расход</option>
+                    </select>
+                </label>
+
+                <label>
+                    Сумма
+                    <input type="number" id="amount" min="1" required>
+                </label>
+
+                <label>
+                    Категория
+                    <select id="category">
+                        <option value="Еда">Еда</option>
+                        <option value="Транспорт">Транспорт</option>
+                        <option value="Развлечения">Развлечения</option>
+                        <option value="Учёба">Учёба</option>
+                        <option value="Другое">Другое</option>
+                    </select>
+                </label>
+
+                <label>
+                    Дата
+                    <input type="date" id="date" required>
+                </label>
+            </div>
+
+            <label>
+                Комментарий (необязательно)
+                <input type="text" id="comment" maxlength="60">
+            </label>
+
+            <button type="submit">Добавить</button>
+        </form>
+    </section>
+
+    <!-- список транзакций -->
+    <section class="list-box">
+        <h3>Список транзакций</h3>
+        <div id="list"></div>
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
