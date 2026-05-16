@@ -10,25 +10,98 @@ body {
     background: #f4f4f7;
     color: #222;
     padding: 20px;
+    transition: background 0.2s, color 0.2s;
+}
+
+/* тёмная тема */
+body.dark {
+    background: #1a1a1a;
+    color: #eee;
+}
+
+body.dark .card,
+body.dark .form-box,
+body.dark .filter-box,
+body.dark .list-box {
+    background: #2a2a2a;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+body.dark .card p {
+    color: #aaa;
+}
+
+body.dark input,
+body.dark select {
+    background: #333;
+    color: #eee;
+    border-color: #555;
+}
+
+body.dark .item {
+    border-bottom-color: #444;
+}
+
+body.dark .item-info .date,
+body.dark .item-info .comment {
+    color: #aaa;
+}
+
+body.dark .del-btn {
+    background: #333;
+}
+
+body.dark .del-btn:hover {
+    background: #4a2020;
+}
+
+body.dark .edit-btn {
+    background: #333;
+}
+
+body.dark .edit-btn:hover {
+    background: #204a20;
+}
+
+body.dark .empty {
+    color: #666;
 }
 
 /* шапка */
 header {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 30px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 header h1 {
     color: #ffdd2d;
     background: #222;
-    display: inline-block;
     padding: 10px 25px;
     border-radius: 8px;
 }
 
-header p {
-    margin-top: 10px;
-    color: #666;
+body.dark header h1 {
+    background: #000;
+}
+
+#themeBtn {
+    background: #ddd;
+    color: #333;
+    margin-top: 0;
+}
+
+#themeBtn:hover {
+    background: #ccc;
+}
+
+body.dark #themeBtn {
+    background: #444;
+    color: #eee;
 }
 
 main {
@@ -63,16 +136,11 @@ main {
 }
 
 /* цвета */
-.green {
-    color: #2a9d3f;
-}
-
-.red {
-    color: #d33a3a;
-}
+.green { color: #2a9d3f; }
+.red   { color: #d33a3a; }
 
 /* форма */
-.form-box, .list-box {
+.form-box, .filter-box, .list-box {
     background: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -82,6 +150,10 @@ main {
 
 .form-box h3, .list-box h3 {
     margin-bottom: 15px;
+}
+
+.filter-box {
+    padding: 15px 20px;
 }
 
 .row {
@@ -97,6 +169,10 @@ label {
     color: #555;
     flex: 1;
     margin-bottom: 10px;
+}
+
+body.dark label {
+    color: #bbb;
 }
 
 input, select {
@@ -122,6 +198,20 @@ button:hover {
     background: #ffd000;
 }
 
+.form-btns {
+    display: flex;
+    gap: 10px;
+}
+
+#cancelBtn {
+    background: #eee;
+    color: #555;
+}
+
+#cancelBtn:hover {
+    background: #ddd;
+}
+
 /* список */
 .item {
     display: flex;
@@ -139,24 +229,20 @@ button:hover {
     flex: 1;
 }
 
-.item-info .date {
-    color: #888;
-    font-size: 13px;
-}
-
-.item-info .category {
-    font-weight: bold;
-}
-
-.item-info .comment {
-    color: #666;
-    font-size: 13px;
-}
+.item-info .date     { color: #888; font-size: 13px; }
+.item-info .category { font-weight: bold; }
+.item-info .comment  { color: #666; font-size: 13px; }
 
 .item-amount {
     font-weight: bold;
-    margin-right: 15px;
+    margin-right: 10px;
     font-size: 16px;
+    white-space: nowrap;
+}
+
+.item-btns {
+    display: flex;
+    gap: 6px;
 }
 
 .del-btn {
@@ -166,11 +252,24 @@ button:hover {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: normal;
+    margin-top: 0;
 }
 
-.del-btn:hover {
-    background: #ffe5e5;
+.del-btn:hover { background: #ffe5e5; }
+
+.edit-btn {
+    background: #f4f4f7;
+    color: #2a9d3f;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: normal;
+    margin-top: 0;
 }
+
+.edit-btn:hover { background: #e5ffe5; }
 
 .empty {
     text-align: center;
@@ -182,5 +281,10 @@ button:hover {
 @media (max-width: 600px) {
     .stats, .row {
         flex-direction: column;
+    }
+    header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
 }

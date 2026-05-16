@@ -2,14 +2,14 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Мои финансы</title>
+    <title>Т-емка</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <h1>Мои финансы</h1>
-    <p>Дашборд студента</p>
+    <h1>Т-емка</h1>
+    <button id="themeBtn" onclick="toggleTheme()">Тёмная тема</button>
 </header>
 
 <main>
@@ -30,9 +30,9 @@
         </div>
     </section>
 
-    <!-- форма добавления -->
+    <!-- форма добавления / редактирования -->
     <section class="form-box">
-        <h3>Новая транзакция</h3>
+        <h3 id="formTitle">Новая транзакция</h3>
         <form id="form">
             <div class="row">
                 <label>
@@ -70,8 +70,50 @@
                 <input type="text" id="comment" maxlength="60">
             </label>
 
-            <button type="submit">Добавить</button>
+            <div class="form-btns">
+                <button type="submit" id="submitBtn">Добавить</button>
+                <button type="button" id="cancelBtn" onclick="cancelEdit()" style="display:none">Отмена</button>
+            </div>
         </form>
+    </section>
+
+    <!-- фильтры и сортировка -->
+    <section class="filter-box">
+        <div class="row">
+            <label>
+                Тип
+                <select id="filterType" onchange="render()">
+                    <option value="all">Все</option>
+                    <option value="income">Доходы</option>
+                    <option value="expense">Расходы</option>
+                </select>
+            </label>
+
+            <label>
+                Категория
+                <select id="filterCategory" onchange="render()">
+                    <option value="all">Все</option>
+                    <option value="Еда">Еда</option>
+                    <option value="Транспорт">Транспорт</option>
+                    <option value="Развлечения">Развлечения</option>
+                    <option value="Учёба">Учёба</option>
+                    <option value="Другое">Другое</option>
+                </select>
+            </label>
+
+            <label>
+                Сортировка
+                <select id="sortBy" onchange="render()">
+                    <option value="date">По дате</option>
+                    <option value="amount">По сумме</option>
+                    <option value="category">По категории</option>
+                </select>
+            </label>
+
+            <label style="justify-content:flex-end">
+                <button type="button" onclick="exportCSV()" style="margin-top:22px">Скачать CSV</button>
+            </label>
+        </div>
     </section>
 
     <!-- список транзакций -->
