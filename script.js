@@ -23,8 +23,7 @@ let settings = { currencyName: '', currencyRate: 1, dailyLimit: 0, weakCategory:
 const savedSettings = localStorage.getItem('settings');
 if (savedSettings) settings = Object.assign(settings, JSON.parse(savedSettings));
 
-const saved = localStorage.getItem('transactions');
-if (saved) transactions = JSON.parse(saved);
+const API_URL = '/api/transactions';
 
 if (localStorage.getItem('dark') === '1') {
     document.body.classList.add('dark');
@@ -38,8 +37,14 @@ document.getElementById('dailyLimit').value   = settings.dailyLimit || '';
 
 document.getElementById('type').addEventListener('change', updateFormCategorySelect);
 
-function save() {
-    localStorage.setItem('transactions', JSON.stringify(transactions));
+function loadTransactions() {
+    fetch(API_URL)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            transactions = data;
+            render();
+        })
+        .catch(function(err) { console.error('Не удалось загрузить транзакции', err); });
 }
 
 function formatAmount(n) {
@@ -232,24 +237,26 @@ form.addEventListener('submit', function(e) {
         if (!ok) return;
     }
 
+    const payload = { type: type, amount: amount, category: category, date: date, comment: comment };
+
     if (editId !== null) {
-        for (let i = 0; i < transactions.length; i++) {
-            if (transactions[i].id === editId) {
-                transactions[i].type     = type;
-                transactions[i].amount   = amount;
-                transactions[i].category = category;
-                transactions[i].date     = date;
-                transactions[i].comment  = comment;
-                break;
-            }
-        }
-        cancelEdit();
+        fetch(API_URL + '/' + editId, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+            .then(function() { cancelEdit(); loadTransactions(); })
+            .catch(function(err) { console.error('Не удалось сохранить транзакцию', err); });
     } else {
-        transactions.push({ id: Date.now(), type: type, amount: amount, category: category, date: date, comment: comment });
+        fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+            .then(function() { loadTransactions(); })
+            .catch(function(err) { console.error('Не удалось добавить транзакцию', err); });
     }
 
-    save();
-    render();
     document.getElementById('amount').value  = '';
     document.getElementById('comment').value = '';
 });
@@ -288,9 +295,9 @@ function cancelEdit() {
 
 function deleteItem(id) {
     if (editId === id) cancelEdit();
-    transactions = transactions.filter(function(t) { return t.id !== id; });
-    save();
-    render();
+    fetch(API_URL + '/' + id, { method: 'DELETE' })
+        .then(function() { loadTransactions(); })
+        .catch(function(err) { console.error('Не удалось удалить транзакцию', err); });
 }
 
 // стрик — сколько дней подряд есть хоть одна транзакция
@@ -465,4 +472,4 @@ function formatDate(str) {
 }
 
 updateCategorySelects();
-render();
+loadTransactions();
