@@ -9,7 +9,7 @@
 ## Стек
 
 - **Frontend**: чистый HTML + CSS + JavaScript (ванильный, без фреймворков)
-- **Backend**: минимальный Node.js HTTP-сервер для раздачи статики
+- **Backend**: минимальный Java HTTP-сервер (`com.sun.net.httpserver`) для раздачи статики
 - **Хранилище**: `localStorage` — данные сохраняются на устройстве пользователя
 
 ---
@@ -59,7 +59,8 @@
 ## Быстрый старт
 
 ```bash
-node server.js
+javac -d out src/Server.java
+java -cp out Server
 # Открыть http://localhost:3000
 ```
 
@@ -73,7 +74,7 @@ node server.js
 ├── index.html   — разметка и структура страницы
 ├── style.css    — стили, тёмная тема, адаптив
 ├── script.js    — вся логика: транзакции, фильтры, настройки, streak
-└── server.js    — Node.js сервер для раздачи статики
+└── src/Server.java — Java HTTP-сервер для раздачи статики
 ```
 
 ---
